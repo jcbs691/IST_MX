@@ -96,9 +96,11 @@ if uploaded_file:
             df_minimos['Cumple'] = df_minimos['Asignado']>=df_minimos['Minimo']
             df_minimos['Pendiente Final'] = df_minimos['Minimo']-df_minimos['Asignado']
  
+                        # Asegurar que el índice de df_asignacion sea MultiIndex para hacer join correctamente
+            df_asignacion.index = pd.MultiIndex.from_tuples(df_asignacion.index, names=['MES','Codigo'])
             # Incorporar Stock Restante en Asignación
             df_asign_out = df_asignacion.join(df_stock['Stock Restante'])
- 
+
             # Generar Excel
             output = io.BytesIO()
             with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
