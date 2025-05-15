@@ -123,4 +123,4 @@ if uploaded_file:
             # 📈 Evolución mensual por cliente
             st.subheader("📈 Evolución mensual por cliente")
             df_plot = df_asignacion.reset_index().melt(id_vars=["MES", "Codigo"], var_name="Cliente", value_name="Asignado")
-            df_cliente_mes = df_plot.groupby(["MES", "Cliente"])\
+            df_cliente_mes = df_plot.groupby(["MES", "Cliente"])
