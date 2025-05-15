@@ -7,7 +7,7 @@ import io
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-st.set\_page\_config(page\_title="PIAT - Asignación de Stock", layout="centered")
+st.set_page_config(page_title="PIAT - Asignación de Stock", layout="centered")
 st.title("📦 IST - Asignación de Stock por Cliente y Mes (v1.5 Prioridad Fix + Flujo continuo)")
 
 st.markdown("""
@@ -26,19 +26,19 @@ st.markdown("""
 👉 [Descargar archivo de prueba](https://github.com/sebasalinas27/IST-Modulo-Asignacion/raw/main/Template_Pruebas_PIAT.xlsx)
 """)
 
-uploaded\_file = st.file\_uploader("Sube tu archivo Excel", type=\["xlsx"])
+uploaded_file = st.file\_uploader("Sube tu archivo Excel", type=["xlsx"])
 
-if uploaded\_file:
-st.subheader("📊 Resumen del archivo cargado")
-df\_stock\_preview = pd.read\_excel(uploaded\_file, sheet\_name="Stock Disponible")
-df\_prioridad\_preview = pd.read\_excel(uploaded\_file, sheet\_name="Prioridad Clientes")
-df\_minimos\_preview = pd.read\_excel(uploaded\_file, sheet\_name="Mínimos de Asignación")
+if uploaded_file:
+    st.subheader("📊 Resumen del archivo cargado")
+    df_stock_preview = pd.read_excel(uploaded_file, sheet_name="Stock Disponible")
+    df_prioridad_preview = pd.read_excel(uploaded_file, sheet_name="Prioridad Clientes")
+    df_minimos_preview = pd.read_excel(uploaded_file, sheet_name="Mínimos de Asignación")
 
-```
-st.write(f"- **Productos**: {df_stock_preview['Codigo'].nunique()}")
-st.write(f"- **Clientes**: {df_prioridad_preview.shape[0]}")
-st.write(f"- **Meses**: {df_stock_preview['MES'].nunique()}")
-st.write(f"- **Celdas con mínimo asignado**: {(df_minimos_preview['Minimo'] > 0).sum()}")
+
+    st.write(f"- **Productos**: {df_stock_preview['Codigo'].nunique()}")
+    st.write(f"- **Clientes**: {df_prioridad_preview.shape[0]}")
+    st.write(f"- **Meses**: {df_stock_preview['MES'].nunique()}")
+    st.write(f"- **Celdas con mínimo asignado**: {(df_minimos_preview['Minimo'] > 0).sum()}")
 
 if st.button("🔁 Ejecutar Asignación"):
     try:
@@ -146,4 +146,3 @@ if st.button("🔁 Ejecutar Asignación"):
 
     except Exception as e:
         st.error(f"❌ Error al procesar el archivo: {e}")
-```
