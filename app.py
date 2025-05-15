@@ -123,4 +123,30 @@ if uploaded_file:
             # 📈 Evolución mensual por cliente
             st.subheader("📈 Evolución mensual por cliente")
             df_plot = df_asignacion.reset_index().melt(id_vars=["MES", "Codigo"], var_name="Cliente", value_name="Asignado")
-            df_cliente_mes = df_plot.groupby(["MES", "Cliente"])
+            df_cliente_mes = df_plot.groupby(["MES", "Cliente"])["Asignado"].sum().reset_index()
+            fig2, ax2 = plt.subplots(figsize=(10, 5))
+            sns.lineplot(data=df_cliente_mes, x="MES", y="Asignado", hue="Cliente", marker="o", ax=ax2)
+            ax2.set_title("Evolución mensual de asignación")
+            ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+            st.pyplot(fig2)
+
+            # 📦 Stock asignado vs restante por mes
+            st.subheader("📦 Stock asignado vs restante por mes")
+            df_stock_total = df_stock.reset_index().groupby("MES")[['Stock Disponible', 'Stock Restante']].sum()
+            df_stock_total['Stock Asignado'] = df_stock_total['Stock Disponible'] - df_stock_total['Stock Restante']
+            df_melted = df_stock_total[['Stock Asignado', 'Stock Restante']].reset_index().melt(id_vars='MES', var_name='Tipo', value_name='Unidades')
+            fig3, ax3 = plt.subplots(figsize=(8, 4))
+            sns.barplot(data=df_melted, x='MES', y='Unidades', hue='Tipo', ax=ax3)
+            ax3.set_title('Distribución de stock por mes')
+            st.pyplot(fig3)
+
+            # Botón de descarga
+            st.download_button(
+                label="📥 Descargar archivo Excel",
+                data=output.getvalue(),
+                file_name="asignacion_resultados_PIAT_v1_5.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+
+        except Exception as e:
+            st.error(f"❌ Error al procesar el archivo: {e}")
