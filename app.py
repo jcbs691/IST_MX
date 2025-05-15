@@ -26,7 +26,7 @@ st.markdown("""
 👉 [Descargar archivo de prueba](https://github.com/sebasalinas27/IST-Modulo-Asignacion/raw/main/Template_Pruebas_PIAT.xlsx)
 """)
 
-uploaded_file = st.file\_uploader("Sube tu archivo Excel", type=["xlsx"])
+uploaded_file = st.file_uploader("Sube tu archivo Excel", type=["xlsx"])
 
 if uploaded_file:
     st.subheader("📊 Resumen del archivo cargado")
